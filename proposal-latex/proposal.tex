@@ -10,6 +10,7 @@
 \def\UrlBreaks{\do\/\do-}
 \usepackage{breakurl}
 \usepackage[breaklinks]{hyperref}
+\usepackage{float}
 
 \titleformat{\chapter}[block]
   {\normalfont\huge\bfseries}{\thechapter}{20pt}{}
@@ -119,12 +120,12 @@
 We have chosen Thoracic surgery as its evolving and surgeons have major collaborative roles in management of lung cancer, respiratory infections, chest trauma, pediatric respiratory disorders and end-stage respiratory. Today, lung cancer is the most frequent indication for thoracic surgery.
 Thoracic Surgeries focuses on the chest organs, including the esophegus , trachea , pleura , chest wall, diaphragm, heart, and lungs. Technological advances have increased the safety and availability of these complex surgical procedures. Lung cancer surgeries and anti-reflex surgeries save and improve lives around the world.
 The most common diseases requiring thoracic surgery include lung cancer (its rate of survival is very low among women and men) , chest trauma (require urgent thoracic surgery), esophageal cancer,(its rate is rising slowly recently) emphysema, and lung transplantation.
-So in conclusion we chose this project because we are hopeful that our model will be useful to detect the patients who are at risk after surgery by importing their symptoms in our model which we will be using the data from former patients’ information in.
+So in conclusion we chose this project because we are hopeful that our model will be useful to detect the patients who are at risk after surgery by importing their symptoms in our model which we will be using the data from former patients’ information in.\cite{encyclopedia} 
 \newpage
 \section{Objectives of project }
 \begin{enumerate}
 
-\item Learning statistics which is mathematical study of data as you cannot do statistics without having data and it will be done by using statistical model which is a model for the data that is used either to infer something about the relationships within the data or to create a model that is able to predict future values. 
+\item Learning statistics which is mathematical study of data as you cannot do statistics without having data and it will be done by using statistical model which is a model for the data that is used either to infer something about the relationships within the data or to create a model that is able to predict future values. \cite{towardsdatascience1} 
 \item Making statistical models which are designed for inference about the relationships between variables.
 \item Learning Machine learning which has a purpose of obtaining a model that can make repeatable predictions. 
 \item Learning the three methods of the machine learning which are:
@@ -138,7 +139,7 @@ So in conclusion we chose this project because we are hopeful that our model wil
 \end{enumerate}
 \section{Data Set Information:} 
 
-The data was collected retrospectively at Wroclaw Thoracic Surgery Centre for patients who underwent major lung resections for primary lung cancer in the years 2007 \& 2011. The Centre is associated with the Department of Thoracic Surgery of the Medical University of Wroclaw and Lower-Silesian Centre for Pulmonary Diseases, Poland, while the research database constitutes a part of the National Lung Cancer Registry, administered by the Institute of Tuberculosis and Pulmonary Diseases in Warsaw, Poland.
+The data was collected retrospectively at Wroclaw Thoracic Surgery Centre for patients who underwent major lung resections for primary lung cancer in the years 2007 \& 2011. The Centre is associated with the Department of Thoracic Surgery of the Medical University of Wroclaw and Lower-Silesian Centre for Pulmonary Diseases, Poland, while the research database constitutes a part of the National Lung Cancer Registry, administered by the Institute of Tuberculosis and Pulmonary Diseases in Warsaw, Poland.\cite{archive} 
 \subsection{Attribute Information:} 
 \begin{enumerate} 
 \item DGN: Diagnosis -specific combination of ICD-10 codes for primary and secondary as well multiple tumours if any (DGN3,DGN2,DGN4,DGN6,DGN5,DGN8,DGN1)
@@ -307,22 +308,22 @@ ForcedExpiratoryVolume1 &  0.96  & 86.3   &4.6 &11.8\\
 \section {Pre-processing of Data}
 In recent year, the difficulty for creating model increasing explosively as the data to be analyzed growing. When the attempt is classifying or creating a model for a specified problem, the various technique could be used, but dealing with problems contain a high number of features is a very challengeable task. So we will be focusing on the analyzing and selecting the data using statistical methods before creating the model.
 
-In our data we have three scale variables and thirteen nominal variables, So we need to determine the correlation between the scale and nominal variables and the one-year status.
+In our data we have three scale variables and thirteen nominal variables, So we need to determine the correlation between the scale and nominal variables and the one-year status.\cite{researchgate} 
 
-We will use statistical tests to analyze and visualize the Thoracic Surgery Data. We will use two types of relations. The ANOVA test between the one-year status and scale variables while the chi-square between one-year status and the nominal variables. From the 16 variables, the related variables with the one year-status will be the variables which we will use to create our model. Therefore, we could create a model with less number of variables by understanding and visualizing the dataset. 
+We will use statistical tests to analyze and visualize the Thoracic Surgery Data. We will use two types of relations. The ANOVA test \cite{analyticsvidhya1} between the one-year status and scale variables while the chi-square\cite{mathsisfun}  between one-year status and the nominal variables. From the 16 variables, the related variables with the one year-status will be the variables which we will use to create our model. Therefore, we could create a model with less number of variables by understanding and visualizing the dataset. 
 
 However we won’t do any data imputation in our statistical model because our dataset is complete and doesn’t have any missing values in them.
 
 \section{Exploratory data analysis (EDA)}
 Exploratory data analysis depends on visualization of data by using \textbf { R-Language} libraries  as \textbf {ggplot}.\\
-From point 4 after using correlation, we mentioned that we have two tables one between the one-year status and scale variables while the other between one-year status and the nominal variables so we will use statistical tests to analyze and visualize the one-year status that depend on variables known from point 4.
+From point 4 after using correlation, we mentioned that we have two tables one between the one-year status and scale variables while the other between one-year status and the nominal variables so we will use statistical tests to analyze and visualize the one-year status that depend on variables known from point 4.\cite{datacamp} 
 
 \section{Methodology}
 \begin {enumerate}
 \item \textbf {Naive Bayes} \\
  Naive Bayes is a classification algorithm for binary (two-class) and multi-class classification problems. The technique is easiest to understand when described using binary or categorical input values\\.
 It is called naive Bayes or idiot Bayes because the calculation of the probabilities for each hypothesis are simplified to make their calculation tractable. Rather than attempting to calculate the values of each attribute value $P(d1, d2, d3|h)$ , they are assumed to be conditionally independent given the target value and calculated as $P(d1|h)P(d2|H)$ and so on.\\
-This is a very strong assumption that is most unlikely in real data, i.e. that the attributes do not interact. Nevertheless, the approach performs surprisingly well on data where this assumption does not hold.\\
+This is a very strong assumption that is most unlikely in real data, i.e. that the attributes do not interact. Nevertheless, the approach performs surprisingly well on data where this assumption does not hold.\cite{analyticsvidhya2} \\
 Bayes’ Theorem is stated as: 
 \\
 $P(h|d) = \frac { (P(d|h)P(h)}{P(d)}$\\
@@ -350,23 +351,11 @@ Advantages of Naive Bayes:
 \newpage
 
 
-\item \textbf { K-nearest neighbors (KNN) mode}  \\
-KNN is an algorithm that is considered both non-parametric and an example of lazy learning
-\begin{itemize}
-\item Non-parametric means that it makes no assumptions. The model is made up entirely from the data given to it rather than assuming its structure is normal.
-\item Lazy learning means that the algorithm makes no generalizations. This means that there is little training involved when using this method. Because of this, all of the training data is also used in testing when using KNN.
-\end{itemize}
- Its classification uses k which is the number of its nearest neighbors , step of implementations :
-\begin{itemize}
-\item Calculation of the distance between all points
-\item Finds the k points that are closest
-\item The class is chosen by the majority of the surrounding points.
-\end{itemize}
 
 \item  \textbf { Logistic regression }   \\
 Logistic regression is a technique borrowed by machine learning from the field of statistics.\\
 It is the go-to method for binary classification problems (problems with two class values) in our case it’s whether the patient died after one year or not(0,1).\\
-We can call a Logistic Regression a Linear Regression model but the Logistic Regression uses a more complex cost function, this cost function can be defined as the ‘Sigmoid function’ or also known as the ‘logistic function’ instead of a linear function.\\
+We can call a Logistic Regression a Linear Regression model but the Logistic Regression uses a more complex cost function, this cost function can be defined as the ‘Sigmoid function’ or also known as the ‘logistic function’ instead of a linear function.\cite{machinelearningmastery} \\
 
 
 \includegraphics[width=13cm, height=8 cm]{figures/Sigmoid}
@@ -398,13 +387,25 @@ We can call a Logistic Regression a Linear Regression model but the Logistic Reg
 \item Easy to regularize
 \item Easy to implement
 \end{enumerate}
+\item \textbf { K-nearest neighbors (KNN) mode}  \\
+KNN is an algorithm that is considered both non-parametric and an example of lazy learning.\cite{towardsdatascience2} 
+\begin{itemize}
+\item Non-parametric means that it makes no assumptions. The model is made up entirely from the data given to it rather than assuming its structure is normal.
+\item Lazy learning means that the algorithm makes no generalizations. This means that there is little training involved when using this method. Because of this, all of the training data is also used in testing when using KNN.
+\end{itemize}
+ Its classification uses k which is the number of its nearest neighbors , step of implementations :
+\begin{itemize}
+\item Calculation of the distance between all points
+\item Finds the k points that are closest
+\item The class is chosen by the majority of the surrounding points.
+\end{itemize}
 \end{enumerate}
 
 
 
 
 \section{Project Schedule}
-\begin{table}[ht]
+\begin{table}[H]
 \caption{Project Schedule} % title of Table
 \centering % used for centering table
 \begin{tabular}{c c } % centered columns (4 columns)
@@ -423,6 +424,8 @@ Final submission & 15 December \\ [1ex] % [1ex] adds vertical space
 \label{table:nonlin} % is used to refer this table in the text
 \end{table}
 \vfil
+
+
 \section{Personal Web Site}
 \begin{enumerate}
 \item \href{https://asmaamahmoud12.github.io/Asmaa-Mahmoud/}{Asmaa Mahmoud}
@@ -433,34 +436,42 @@ Final submission & 15 December \\ [1ex] % [1ex] adds vertical space
 
 
 
- \begin{thebibliography}{9}
+ \begin{thebibliography}{999}
 
-\bibitem{towardsdatascience} 
-The Actual Difference Between Statistics and Machine Learning
-\\\texttt{\url{http://bit.ly/2PloPI2}}
+
 \bibitem{encyclopedia} 
 Thoracic Surgery | Encyclopedia.com
 \\\texttt{\url{http://bit.ly/2BTPxzL}}
-\bibitem{analyticsvidhya} 
-6 Easy Steps to Learn Naive Bayes Algorithm 
-\\\texttt{\url{http://bit.ly/2MKPqMN}}
-\bibitem{machinelearningmastery} 
-Logistic Regression for Machine Learning
-\\\texttt{\url{http://bit.ly/2NahU1H}}
-\bibitem{towardsdatascience} 
-Machine Learning Basics with the K-Nearest Neighbors Algorithm
-\\\texttt{\url{http://bit.ly/367NENp}}
+\bibitem{towardsdatascience1} 
+The Actual Difference Between Statistics and Machine Learning
+\\\texttt{\url{http://bit.ly/2PloPI2}}
 \bibitem{archive} 
 UCI Machine Learning Repository: Thoracic Surgery Data Data Set
 \\\texttt{\url{http://bit.ly/2MNVjsW}}
 \bibitem{researchgate} 
 (PDF) Analyzing and visualizing Thoracic Surgery Data Set
 \\\texttt{\url{http://bit.ly/364giit}}
+\bibitem{analyticsvidhya1} 
+A Simple Introduction to ANOVA (with applications in Excel)
+\\\texttt{\url{http://bit.ly/2Wdmj7Y}}
 \bibitem{mathsisfun} 
 Chi-Square Test
 \\\texttt{\url{http://bit.ly/2MP5TzT}}
-\bibitem{analyticsvidhya} 
-A Simple Introduction to ANOVA (with applications in Excel)
-\\\texttt{\url{http://bit.ly/2Wdmj7Y}}
+\bibitem{datacamp} 
+Introduction to Data Visualization with ggplot2 | DataCamp
+\\\texttt{\url{http://bit.ly/2qKiYlo}}
+\bibitem{analyticsvidhya2} 
+6 Easy Steps to Learn Naive Bayes Algorithm 
+\\\texttt{\url{http://bit.ly/2MKPqMN}}
+\bibitem{machinelearningmastery} 
+Logistic Regression for Machine Learning
+\\\texttt{\url{http://bit.ly/2NahU1H}}
+\bibitem{towardsdatascience2} 
+Machine Learning Basics with the K-Nearest Neighbors Algorithm
+\\\texttt{\url{http://bit.ly/367NENp}}
+
 \end{thebibliography}
 \end{document}
+
+
+
