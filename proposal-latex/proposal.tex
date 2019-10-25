@@ -11,7 +11,8 @@
 \usepackage{breakurl}
 \usepackage[breaklinks]{hyperref}
 \usepackage{float}
-
+\usepackage{etoolbox}
+\patchcmd{\thebibliography}{\section*}{\section}{}{}
 \titleformat{\chapter}[block]
   {\normalfont\huge\bfseries}{\thechapter}{20pt}{}
 \titlespacing*{\chapter}
@@ -319,8 +320,8 @@ Exploratory data analysis depends on visualization of data by using \textbf { R-
 From point 4 after using correlation, we mentioned that we have two tables one between the one-year status and scale variables while the other between one-year status and the nominal variables so we will use statistical tests to analyze and visualize the one-year status that depend on variables known from point 4.\cite{datacamp} 
 
 \section{Methodology}
-\begin {enumerate}
-\item \textbf {Naive Bayes} \\
+
+\subsection{Naive Bayes} 
  Naive Bayes is a classification algorithm for binary (two-class) and multi-class classification problems. The technique is easiest to understand when described using binary or categorical input values\\.
 It is called naive Bayes or idiot Bayes because the calculation of the probabilities for each hypothesis are simplified to make their calculation tractable. Rather than attempting to calculate the values of each attribute value $P(d1, d2, d3|h)$ , they are assumed to be conditionally independent given the target value and calculated as $P(d1|h)P(d2|H)$ and so on.\\
 This is a very strong assumption that is most unlikely in real data, i.e. that the attributes do not interact. Nevertheless, the approach performs surprisingly well on data where this assumption does not hold.\cite{analyticsvidhya2} \\
@@ -352,13 +353,13 @@ Advantages of Naive Bayes:
 
 
 
-\item  \textbf { Logistic regression }   \\
+\subsection{Logistic regression}   
 Logistic regression is a technique borrowed by machine learning from the field of statistics.\\
 It is the go-to method for binary classification problems (problems with two class values) in our case it’s whether the patient died after one year or not(0,1).\\
 We can call a Logistic Regression a Linear Regression model but the Logistic Regression uses a more complex cost function, this cost function can be defined as the ‘Sigmoid function’ or also known as the ‘logistic function’ instead of a linear function.\cite{machinelearningmastery} \\
 
 
-\includegraphics[width=13cm, height=8 cm]{figures/Sigmoid}
+\includegraphics[width=12cm, height=5 cm]{figures/Sigmoid}
 
 
 
@@ -387,7 +388,7 @@ We can call a Logistic Regression a Linear Regression model but the Logistic Reg
 \item Easy to regularize
 \item Easy to implement
 \end{enumerate}
-\item \textbf { K-nearest neighbors (KNN) mode}  \\
+\subsection{K-nearest neighbors (KNN) mode}  
 KNN is an algorithm that is considered both non-parametric and an example of lazy learning.\cite{towardsdatascience2} 
 \begin{itemize}
 \item Non-parametric means that it makes no assumptions. The model is made up entirely from the data given to it rather than assuming its structure is normal.
@@ -399,7 +400,7 @@ KNN is an algorithm that is considered both non-parametric and an example of laz
 \item Finds the k points that are closest
 \item The class is chosen by the majority of the surrounding points.
 \end{itemize}
-\end{enumerate}
+
 
 
 
@@ -435,8 +436,8 @@ Final submission & 15 December \\ [1ex] % [1ex] adds vertical space
 \end{enumerate}
 
 
-
- \begin{thebibliography}{999}
+\newpage
+ \begin{thebibliography}{10}
 
 
 \bibitem{encyclopedia} 
