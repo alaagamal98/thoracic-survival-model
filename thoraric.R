@@ -23,6 +23,7 @@ dataset$PerformanceStatus = factor(dataset$PerformanceStatus,levels = c('PRZ0','
 dataset$SizeOfTumer = factor(dataset$SizeOfTumer,levels = c('OC11','OC12','OC13','OC14'),labels = c(11,12,13,14))
 
 
+
 set.seed(56545)
 split = sample.split(dataset$Risk1Yr,SplitRatio = 0.8)
 training_set = subset(dataset,split == TRUE)
@@ -31,7 +32,6 @@ test_set = subset(dataset,split == FALSE)
 
 training_set[,14:16]=scale(training_set[,14:16])
 test_set[,14:16]=scale(test_set[,14:16])
-
 
 folds1 = createFolds(training_set$Risk1Yr, k = 10)
 cv1 = lapply(folds1, function(x) {
@@ -61,19 +61,13 @@ prob_pred = predict(classifier, type = 'response', newdata = test_set[-17])
 y_pred = ifelse(prob_pred > 0.5, 1, 0)
 cm = table(test_set[, 17], y_pred > 0.5)
 
+
 folds2 = createFolds(training_set$Risk1Yr, k = 10)
 cv2 = lapply(folds2, function(x) {
   training_fold = training_set[-x, ]
   test_fold = training_set[x, ]
-  classifier = glm(formula = Risk1Yr ~ .,
-                   family = binomial,
-                   data = training_fold)
-  
-  prob_pred = predict(classifier, type = 'response', newdata = test_fold[-17])
-  y_pred = ifelse(prob_pred > 0.5, 1, 0)
-  
-  cm = table(test_fold[, 17], y_pred > 0.5)
-  colnames(cm) =  c("TRUE","FALSE")
+  y_pred = knn(train=training_fold[,-17],test=test_fold[,-17],cl=training_fold[,17],k=5)
+  cm = table(test_fold[,17],y_pred)
   accuracy = (cm[1,1] + cm[2,2]) / (cm[1,1] + cm[2,2] + cm[1,2] + cm[2,1])
   TPR = cm[1,1]  / (cm[1,1] + cm[2,1])
   FPR = cm[1,2]  / (cm[1,2] + cm[2,2])
@@ -88,28 +82,37 @@ for (i in 1:10)
 }
 accuracy2 = mean(as.numeric(accuracies2))
 
-TPRs2 <- vector(mode="character", length=10)
-for (i in 1:10)
-{
-  TPRs2[i] <- c(cv3[[i]][2])
-}
-TPR2 = mean(as.numeric(TPRs2))
 
-FPRs2 <- vector(mode="character", length=10)
-for (i in 1:10)
-{
-  FPRs2[i] <- c(cv3[[i]][2])
-}
-FPR2 = mean(as.numeric(FPRs2))
 
-sens = TPR2/FPR2
+dataset$Risk1Yr = as.numeric(levels(dataset$Risk1Yr))[dataset$Risk1Yr]
+dataset$PainBS = as.numeric(levels(dataset$PainBS))[dataset$PainBS]
+dataset$HaemoptysisBS = as.numeric(levels(dataset$HaemoptysisBS))[dataset$HaemoptysisBS]
+dataset$DyspnoeaBS = as.numeric(levels(dataset$DyspnoeaBS))[dataset$DyspnoeaBS]
+dataset$CoughBS = as.numeric(levels(dataset$CoughBS))[dataset$CoughBS]
+dataset$WeaknessBS = as.numeric(levels(dataset$WeaknessBS))[dataset$WeaknessBS]
+dataset$Type2Diabetes = as.numeric(levels(dataset$Type2Diabetes))[dataset$Type2Diabetes]
+dataset$HeartAttack6M = as.numeric(levels(dataset$HeartAttack6M))[dataset$HeartAttack6M]
+dataset$PeripheralArterialDiseases = as.numeric(levels(dataset$PeripheralArterialDiseases))[dataset$PeripheralArterialDiseases]
+dataset$Smoking = as.numeric(levels(dataset$Smoking))[dataset$Smoking]
+dataset$Asthma = as.numeric(levels(dataset$Asthma))[dataset$Asthma]
+dataset$DGN = as.numeric(levels(dataset$DGN))[dataset$DGN]
+dataset$PerformanceStatus = as.numeric(levels(dataset$PerformanceStatus))[dataset$PerformanceStatus]
+dataset$SizeOfTumer = as.numeric(levels(dataset$SizeOfTumer))[dataset$SizeOfTumer]
+
+
 
 folds3 = createFolds(training_set$Risk1Yr, k = 10)
 cv3 = lapply(folds3, function(x) {
   training_fold = training_set[-x, ]
   test_fold = training_set[x, ]
-  y_pred = knn(train=training_fold[,-17],test=test_fold[,-17],cl=training_fold[,17],k=5)
-  cm = table(test_fold[,17],y_pred)
+  classifier = glm(formula = Risk1Yr ~ .,
+                   family = binomial,
+                   data = training_fold)
+  
+  prob_pred = predict(classifier, type = 'response', newdata = test_fold[-17])
+  y_pred = ifelse(prob_pred > 0.5, 1, 0)
+  
+  cm = table(test_fold[, 17], y_pred )
   accuracy = (cm[1,1] + cm[2,2]) / (cm[1,1] + cm[2,2] + cm[1,2] + cm[2,1])
   TPR = cm[1,1]  / (cm[1,1] + cm[2,1])
   FPR = cm[1,2]  / (cm[1,2] + cm[2,2])
@@ -124,5 +127,19 @@ for (i in 1:10)
 }
 accuracy3 = mean(as.numeric(accuracies3))
 
+TPRs3 <- vector(mode="character", length=10)
+for (i in 1:10)
+{
+  TPRs3[i] <- c(cv3[[i]][2])
+}
+TPR3 = mean(as.numeric(TPRs3))
 
+FPRs3 <- vector(mode="character", length=10)
+for (i in 1:10)
+{
+  FPRs3[i] <- c(cv3[[i]][2])
+}
+FPR3 = mean(as.numeric(FPRs3))
+
+sens = TPR3/FPR3
 
