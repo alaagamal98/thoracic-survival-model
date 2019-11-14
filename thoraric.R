@@ -5,6 +5,8 @@ library(ElemStatLearn)
 library(class)
 library(caret)
 library(glmnet)
+library(dplyr)
+library(skimr)
 
 dataset <- read.csv(file="ThoraricSurgery.csv")
 dataset$Risk1Yr = factor(dataset$Risk1Yr,levels = c('TRUE','FALSE'),labels = c(1,0))
@@ -22,9 +24,12 @@ dataset$DGN = factor(dataset$DGN,levels = c('DGN1','DGN2','DGN3','DGN4','DGN5','
 dataset$PerformanceStatus = factor(dataset$PerformanceStatus,levels = c('PRZ0','PRZ1','PRZ2'),labels = c(0,1,2))
 dataset$SizeOfTumer = factor(dataset$SizeOfTumer,levels = c('OC11','OC12','OC13','OC14'),labels = c(11,12,13,14))
 
+summary(dataset$Risk1Yr)
+glimpse(dataset)
+skim(dataset$Risk1Yr)
+dim(dataset)
 
-
-set.seed(56545)
+set.seed(333)
 split = sample.split(dataset$Risk1Yr,SplitRatio = 0.8)
 training_set = subset(dataset,split == TRUE)
 test_set = subset(dataset,split == FALSE)
@@ -40,10 +45,11 @@ cv1 = lapply(folds1, function(x) {
   classifier= naiveBayes(x= training_fold[-17],y=training_fold$Risk1Yr)
   y_pred = predict(classifier,newdata =test_fold[-17])
   cm = table(test_fold[,17],y_pred)
+  print(cm)
   accuracy = (cm[1,1] + cm[2,2]) / (cm[1,1] + cm[2,2] + cm[1,2] + cm[2,1])
-  TPR = cm[1,1]  / (cm[1,1] + cm[2,1])
-  FPR = cm[1,2]  / (cm[1,2] + cm[2,2])
-  list <- list(accuracy,TPR,FPR)
+  Sen = cm[1,1]  / (cm[1,1] + cm[2,1])
+  Spec = cm[2,2]  / (cm[1,2] + cm[2,2])
+  list <- list(accuracy,Sen,Spec)
   return(list)
 })
 accuracies1 <- vector(mode="character", length=10)
@@ -53,14 +59,19 @@ for (i in 1:10)
 }
 accuracy1 = mean(as.numeric(accuracies1))
 
-classifier = glm(formula = Risk1Yr ~ .,
-                 family = binomial,
-                 data = training_set)
+sensitivities1 <- vector(mode="character", length=10)
+for (i in 1:10)
+{
+  sensitivities1[i] <- c(cv1[[i]][2])
+}
+sens1 = mean(as.numeric(sensitivities1))
 
-prob_pred = predict(classifier, type = 'response', newdata = test_set[-17])
-y_pred = ifelse(prob_pred > 0.5, 1, 0)
-cm = table(test_set[, 17], y_pred > 0.5)
-
+specificties1 <- vector(mode="character", length=10)
+for (i in 1:10)
+{
+  specificties1[i] <- c(cv1[[i]][3])
+}
+spec1 = mean(as.numeric(specificties1))
 
 folds2 = createFolds(training_set$Risk1Yr, k = 10)
 cv2 = lapply(folds2, function(x) {
@@ -68,10 +79,11 @@ cv2 = lapply(folds2, function(x) {
   test_fold = training_set[x, ]
   y_pred = knn(train=training_fold[,-17],test=test_fold[,-17],cl=training_fold[,17],k=5)
   cm = table(test_fold[,17],y_pred)
+  print(cm)
   accuracy = (cm[1,1] + cm[2,2]) / (cm[1,1] + cm[2,2] + cm[1,2] + cm[2,1])
-  TPR = cm[1,1]  / (cm[1,1] + cm[2,1])
-  FPR = cm[1,2]  / (cm[1,2] + cm[2,2])
-  list <- list(accuracy,TPR,FPR)
+  Sen = cm[1,1]  / (cm[1,1] + cm[2,1])
+  Spec = cm[2,2]  / (cm[1,2] + cm[2,2])
+  list <- list(accuracy,Sen,Spec)
   return(list)
 })
 
@@ -82,7 +94,19 @@ for (i in 1:10)
 }
 accuracy2 = mean(as.numeric(accuracies2))
 
+sensitivities2 <- vector(mode="character", length=10)
+for (i in 1:10)
+{
+  sensitivities2[i] <- c(cv2[[i]][2])
+}
+sens2 = mean(as.numeric(sensitivities2))
 
+specificties2 <- vector(mode="character", length=10)
+for (i in 1:10)
+{
+  specificties2[i] <- c(cv2[[i]][3])
+}
+spec2 = mean(as.numeric(specificties2))
 
 dataset$Risk1Yr = as.numeric(levels(dataset$Risk1Yr))[dataset$Risk1Yr]
 dataset$PainBS = as.numeric(levels(dataset$PainBS))[dataset$PainBS]
@@ -101,6 +125,7 @@ dataset$SizeOfTumer = as.numeric(levels(dataset$SizeOfTumer))[dataset$SizeOfTume
 
 
 
+
 folds3 = createFolds(training_set$Risk1Yr, k = 10)
 cv3 = lapply(folds3, function(x) {
   training_fold = training_set[-x, ]
@@ -111,12 +136,14 @@ cv3 = lapply(folds3, function(x) {
   
   prob_pred = predict(classifier, type = 'response', newdata = test_fold[-17])
   y_pred = ifelse(prob_pred > 0.5, 1, 0)
-  
-  cm = table(test_fold[, 17], y_pred )
+  y_pred = as.integer(y_pred)
+  y_pred = factor(y_pred,levels=c(1,0))
+  cm = table(test_fold[,17], y_pred,useNA = "always" )
+  print(cm)
   accuracy = (cm[1,1] + cm[2,2]) / (cm[1,1] + cm[2,2] + cm[1,2] + cm[2,1])
-  TPR = cm[1,1]  / (cm[1,1] + cm[2,1])
-  FPR = cm[1,2]  / (cm[1,2] + cm[2,2])
-  list <- list(accuracy,TPR,FPR)
+  Sen = cm[1,1]  / (cm[1,1] + cm[2,1])
+  Spec = cm[2,2]  / (cm[1,2] + cm[2,2])
+  list <- list(accuracy,Sen,Spec)
   return(list)
 })
 
@@ -127,19 +154,17 @@ for (i in 1:10)
 }
 accuracy3 = mean(as.numeric(accuracies3))
 
-TPRs3 <- vector(mode="character", length=10)
+sensitivities3 <- vector(mode="character", length=10)
 for (i in 1:10)
 {
-  TPRs3[i] <- c(cv3[[i]][2])
+  sensitivities3[i] <- c(cv3[[i]][2])
 }
-TPR3 = mean(as.numeric(TPRs3))
+sens3 = mean(as.numeric(sensitivities3))
 
-FPRs3 <- vector(mode="character", length=10)
+specificties3 <- vector(mode="character", length=10)
 for (i in 1:10)
 {
-  FPRs3[i] <- c(cv3[[i]][2])
+  specificties3[i] <- c(cv3[[i]][3])
 }
-FPR3 = mean(as.numeric(FPRs3))
-
-sens = TPR3/FPR3
-
+spec3 = mean(as.numeric(specificties3))
+  
