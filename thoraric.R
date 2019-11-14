@@ -1,14 +1,17 @@
-library(ggplot2)
-library(caTools)
-library(e1071)
-library(ElemStatLearn)
-library(class)
-library(caret)
-library(glmnet)
-library(dplyr)
+library(caTools) #splitting dataset  
+library(e1071) #Naive bayes
+library(ElemStatLearn) #element statical learning
+library(class) #classification
+library(caret) #cross validation
+library(glmnet) #logistic regression
+library(dplyr) 
 library(skimr)
 
+
+# Importing the dataset
 dataset <- read.csv(file="ThoraricSurgery.csv")
+
+# Encoding the features as factors
 dataset$Risk1Yr = factor(dataset$Risk1Yr,levels = c('TRUE','FALSE'),labels = c(1,0))
 dataset$PainBS = factor(dataset$PainBS,levels = c('TRUE','FALSE'),labels = c(1,0))
 dataset$HaemoptysisBS = factor(dataset$HaemoptysisBS,levels = c('TRUE','FALSE'),labels = c(1,0))
@@ -24,20 +27,22 @@ dataset$DGN = factor(dataset$DGN,levels = c('DGN1','DGN2','DGN3','DGN4','DGN5','
 dataset$PerformanceStatus = factor(dataset$PerformanceStatus,levels = c('PRZ0','PRZ1','PRZ2'),labels = c(0,1,2))
 dataset$SizeOfTumer = factor(dataset$SizeOfTumer,levels = c('OC11','OC12','OC13','OC14'),labels = c(11,12,13,14))
 
-summary(dataset$Risk1Yr)
+summary(dataset)
 glimpse(dataset)
-skim(dataset$Risk1Yr)
+skim(dataset)
 dim(dataset)
 
+# Splitting the dataset into the Training set and Test set
 set.seed(333)
 split = sample.split(dataset$Risk1Yr,SplitRatio = 0.8)
 training_set = subset(dataset,split == TRUE)
 test_set = subset(dataset,split == FALSE)
 
-
+# Feature Scaling
 training_set[,14:16]=scale(training_set[,14:16])
 test_set[,14:16]=scale(test_set[,14:16])
 
+#Cross Validation For Naive Bayes
 folds1 = createFolds(training_set$Risk1Yr, k = 10)
 cv1 = lapply(folds1, function(x) {
   training_fold = training_set[-x, ]
@@ -73,6 +78,8 @@ for (i in 1:10)
 }
 spec1 = mean(as.numeric(specificties1))
 
+
+#Cross Validation For KNN
 folds2 = createFolds(training_set$Risk1Yr, k = 10)
 cv2 = lapply(folds2, function(x) {
   training_fold = training_set[-x, ]
@@ -108,6 +115,7 @@ for (i in 1:10)
 }
 spec2 = mean(as.numeric(specificties2))
 
+#Converting Factors to Numeric
 dataset$Risk1Yr = as.numeric(levels(dataset$Risk1Yr))[dataset$Risk1Yr]
 dataset$PainBS = as.numeric(levels(dataset$PainBS))[dataset$PainBS]
 dataset$HaemoptysisBS = as.numeric(levels(dataset$HaemoptysisBS))[dataset$HaemoptysisBS]
@@ -125,7 +133,7 @@ dataset$SizeOfTumer = as.numeric(levels(dataset$SizeOfTumer))[dataset$SizeOfTume
 
 
 
-
+#Cross Validation For Logistics Regression
 folds3 = createFolds(training_set$Risk1Yr, k = 10)
 cv3 = lapply(folds3, function(x) {
   training_fold = training_set[-x, ]
@@ -147,7 +155,7 @@ cv3 = lapply(folds3, function(x) {
   return(list)
 })
 
-accuracies3 <- vector(mode="character", length=10)
+  accuracies3 <- vector(mode="character", length=10)
 for (i in 1:10)
 {
   accuracies3[i] <- c(cv3[[i]][1])
