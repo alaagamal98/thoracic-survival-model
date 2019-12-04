@@ -1,4 +1,3 @@
-
 <center> <h1> Thoracic Surgery</h1> </center>
 
 ![](thoracic.png)
