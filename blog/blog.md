@@ -58,28 +58,28 @@ field of statistics.
 because our dataset is complete and doesn’t have any missing values in them.
 # Thoracic Surgery by Machine Learning:
 ## Importing Libraries ana Dataset in R:
-![](libdataset.png)
+![](libdataset.PNG)
 ## Encoding Features:
-![](encoding.png)
+![](encoding.PNG)
 
 ### Splitting Data and Feature Scalling:
-![](split.png)
+![](split.PNG)
 
 
 ## Cross Validation For Naive Bayes:
-![](cvnaive.png)
+![](cvnaive.PNG)
 
 ### Results Obtained: 
 
 ## Cross Validation For Logistic Regression:
-![](cvlogistic.png)
+![](cvlogistic.PNG)
 
  ### Results Obtained: 
 
 
 
 ## Cross Validation For KNN:
-![](cvknn.png)
+![](cvknn.PNG)
 
 ### Results obtained: 
 
@@ -88,7 +88,7 @@ because our dataset is complete and doesn’t have any missing values in them.
 
 ## Visualization of Data:
 By applying t-test , we selected the most effective features on Risk 1 Year feature. We found that Age and Size of tumer are the most effective features. 
-![](visualization.png)
+![](visualization.PNG)
 
 
 
@@ -108,8 +108,3 @@ By applying t-test , we selected the most effective features on Risk 1 Year feat
 | Alaa Gamal AbdelAziz |  [Alaa Gamal ](https://alaagamal98.github.io/AlaaGamal/) |
 | Salma Mohamed Zakaria |  [Salma Zakaria ](https://salmazakariia.github.io/Salma-Zakaria/) |
 | Marwa Adel Youssef  |  [Marwa Youssef ](https://marwaayosiif.github.io/MarwaYoussef/) |
-
-
-
-
-<a href="http://example.com/" target="_blank">Hello, world!</a>
