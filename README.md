@@ -1,6 +1,6 @@
 <center> <h1> Thoracic Surgery</h1> </center>
 
-![](thoracic.png)
+![](images/thoracic.png)
 # Introduction to Thoracic Surgery:
 >Thoracic surgery as its evolving and surgeons have major collaborative roles in management of lung cancer, respiratory infections, chest trauma, pediatric respiratory disorders and end-stage respiratory. Today, lung cancer is the most frequent indication for thoracic surgery. Thoracic Surgeries focuses on the chest organs, including the esophegus , trachea , pleura , chest wall, diaphragm, heart, and lungs. Technological advances have increased the safety and availability of these complex surgical procedures. Lung cancer surgeries and anti-reflex surgeries save and improve lives around the world. The most common diseases requiring thoracic surgery include lung cancer, chest trauma (require urgent thoracic surgery), esophageal cancer, emphysema and lung transplantation.
 # Dataset Information:
@@ -57,28 +57,28 @@ field of statistics.
 because our dataset is complete and doesn’t have any missing values in them.
 # Thoracic Surgery by Machine Learning:
 ## Importing Libraries ana Dataset in R:
-![](libdataset.PNG)
+![](images/libdataset.PNG)
 ## Encoding Features:
-![](encoding.PNG)
+![](images/encoding.PNG)
 
 ### Splitting Data and Feature Scalling:
-![](split.PNG)
+![](images/split.PNG)
 
 
 ## Cross Validation For Naive Bayes:
-![](cvnaive.PNG)
+![](images/cvnaive.PNG)
 
 ### Results Obtained: 
 
 ## Cross Validation For Logistic Regression:
-![](cvlogistic.PNG)
+![](images/cvlogistic.PNG)
 
  ### Results Obtained: 
 
 
 
 ## Cross Validation For KNN:
-![](cvknn.PNG)
+![](images/cvknn.PNG)
 
 ### Results obtained: 
 
@@ -87,7 +87,7 @@ because our dataset is complete and doesn’t have any missing values in them.
 
 ## Visualization of Data:
 By applying t-test , we selected the most effective features on Risk 1 Year feature. We found that Age and Size of tumer are the most effective features. 
-![](visualization.PNG)
+![](images/visualization.PNG)
 
 
 
